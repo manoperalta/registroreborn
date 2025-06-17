@@ -1,3 +1,34 @@
+# Ambiente virtual
 /venv/
+
+# Arquivos de mídia (uploads)
 /media/
+
+# Banco de dados SQLite
 db.sqlite3
+
+# Arquivos Python compilados
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Configurações específicas de ambiente
+.env
+
+# Cache do editor
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Arquivos temporários
+*.tmp
+*.swp
+*.bak
+
+# MacOS
+.DS_Store
+
+# Thumbnails e outros arquivos gerados
+*.thumb

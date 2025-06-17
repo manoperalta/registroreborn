@@ -1,0 +1,185 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Certidão de Nascimento</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #ffeef2 0%, #e0f7fa 100%);
+            font-family: 'Quicksand', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(45deg, #ffeef2, #d0f0f8, #ffeef2);
+            animation: gradientMove 12s ease infinite;
+            border-bottom-left-radius: 40% 10%;
+            border-bottom-right-radius: 40% 10%;
+            position: relative;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        header h1 {
+            font-family: 'Pacifico', cursive;
+            color: #ff80ab;
+            font-size: 2.8em;
+            margin: 0;
+        }
+
+        header p {
+            color: #444;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+
+        .cloud {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: floatCloud 30s linear infinite;
+        }
+
+        .cloud.small {
+            width: 100px; height: 60px;
+            top: 40px; left: -150px;
+            animation-duration: 35s;
+        }
+
+        .cloud.large {
+            width: 180px; height: 100px;
+            top: 100px; left: -250px;
+            animation-duration: 45s;
+        }
+
+        @keyframes floatCloud {
+            from { transform: translateX(0); }
+            to { transform: translateX(120vw); }
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1.2s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .titulo {
+            text-align: center;
+            font-size: 26px;
+            color: #ff80ab;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        form p {
+            margin-bottom: 15px;
+        }
+
+        form label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: block;
+            color: #555;
+        }
+
+        form input,
+        form select,
+        form textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ffcdd2;
+            border-radius: 10px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        form input:focus,
+        form select:focus,
+        form textarea:focus {
+            border-color: #ff80ab;
+            box-shadow: 0 0 0 4px rgba(255, 128, 171, 0.2);
+        }
+
+        button[type="submit"] {
+            background-color: #81d4fa;
+            color: white;
+            font-size: 16px;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            width: 100%;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #ff80ab;
+            transform: scale(1.05);
+        }
+
+        /* Estrelinhas e corações */
+        .floating-icon {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            opacity: 0.6;
+            animation: floatUp 8s infinite ease-in-out;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 0.6; }
+            50% { transform: translateY(-20px) scale(1.2); opacity: 0.8; }
+            100% { transform: translateY(0) scale(1); opacity: 0.6; }
+        }
+
+        .icon-heart { background: url('{% static "img/heart.png" %}') no-repeat center / contain; }
+        .icon-star { background: url('{% static "img/star.png" %}') no-repeat center / contain; }
+    </style>
+</head>
+<body>
+
+    <div class="cloud small"></div>
+    <div class="cloud large"></div>
+    <div class="floating-icon icon-heart" style="top: 80%; left: 10%; animation-delay: 0s;"></div>
+    <div class="floating-icon icon-star" style="top: 85%; left: 80%; animation-delay: 2s;"></div>
+
+    <header>
+        <h1>Certidão de Nascimento Reborn</h1>
+        <p>Preencha com carinho os dados do seu bebê reborn e registre esse momento mágico.</p>
+    </header>
+
+    <div class="container">
+        <h2 class="titulo">Nova Certidão de Nascimento</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Salvar</button>
+        </form>
+    </div>
+
+</body>
+</html>

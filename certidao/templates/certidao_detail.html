@@ -1,0 +1,239 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Detalhes da Certidão</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #ec4899;
+      --primary-hover: #db2777;
+      --secondary: #8b5cf6;
+      --secondary-hover: #7c3aed;
+      --text-primary: #1f2937;
+      --text-secondary: #4b5563;
+      --radius: 0.5rem;
+
+      --pink-light: #fce7f3;
+      --blue-light: #bae6fd;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, var(--pink-light), var(--blue-light));
+      color: var(--text-primary);
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem;
+      background: #ede9fe;
+      border-bottom: 3px solid #fbcfe8;
+    }
+
+    header h1 {
+      font-family: 'Pacifico', cursive;
+      color: var(--primary);
+      margin-bottom: 0.3rem;
+      font-size: 2.5rem;
+    }
+
+    header p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      animation: slideFadeIn 1s ease-out;
+      position: relative;
+      z-index: 2;
+    }
+
+    .field {
+      margin-bottom: 1.5rem;
+    }
+
+    .field label {
+      display: block;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 0.4rem;
+    }
+
+    .field-value {
+      font-size: 1.1rem;
+      color: var(--text-primary);
+      padding: 0.5rem 0.75rem;
+      background: #e0f2fe;
+      border-radius: var(--radius);
+      border: 1px solid #bae6fd;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      text-decoration: none;
+      background-color: var(--secondary);
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: var(--radius);
+      transition: background 0.3s ease;
+    }
+
+    .back-link:hover {
+      background-color: var(--secondary-hover);
+    }
+
+    /* Animações */
+    @keyframes slideFadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* Nuvens */
+    .cloud {
+      position: absolute;
+      background: #ffffff;
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: float 6s ease-in-out infinite;
+      z-index: 1;
+    }
+
+    .cloud::before,
+    .cloud::after {
+      content: '';
+      position: absolute;
+      background: #ffffff;
+      border-radius: 50%;
+    }
+
+    .cloud.small {
+      width: 80px;
+      height: 40px;
+      top: 40px;
+      left: 20px;
+    }
+
+    .cloud.small::before {
+      width: 40px;
+      height: 40px;
+      top: -10px;
+      left: 20px;
+    }
+
+    .cloud.small::after {
+      width: 30px;
+      height: 30px;
+      top: 5px;
+      left: 50px;
+    }
+
+    .cloud.large {
+      width: 140px;
+      height: 70px;
+      top: 100px;
+      right: 30px;
+    }
+
+    .cloud.large::before {
+      width: 70px;
+      height: 70px;
+      top: -20px;
+      left: 30px;
+    }
+
+    .cloud.large::after {
+      width: 60px;
+      height: 60px;
+      top: 10px;
+      left: 80px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Detalhes da Certidão</h1>
+    <p>Veja as informações registradas com carinho</p>
+  </header>
+
+  <!-- Nuvens -->
+  <div class="cloud small"></div>
+  <div class="cloud large"></div>
+
+  <!-- Formulário -->
+  <div class="container">
+    <div class="field">
+      <label>Nome do Bebê</label>
+      <div class="field-value">{{ certidao.nome_crianca }}</div>
+    </div>
+
+    <div class="field">
+      <label>Data de Nascimento</label>
+      <div class="field-value">{{ certidao.data_nascimento }}</div>
+    </div>
+
+    <div class="field">
+      <label>Hora de Nascimento</label>
+      <div class="field-value">{{ certidao.hora_nascimento }}</div>
+    </div>
+
+    <div class="field">
+      <label>Naturalidade</label>
+      <div class="field-value">{{ certidao.local_nascimento }}</div>
+    </div>
+
+    <div class="field">
+      <label>Nacionalidade da Mãe</label>
+      <div class="field-value">{{ certidao.nacionalidade_mae }}</div>
+    </div>
+
+    <div class="field">
+      <label>Nome da Mamãe</label>
+      <div class="field-value">{{ certidao.nome_mae }}</div>
+    </div>
+
+    <div class="field">
+      <label>Data do Registro</label>
+      <div class="field-value">{{ certidao.data_registro }}</div>
+    </div>
+    <a href="{{ certidao.pdf_url }}">Baixar PDF</a>
+
+  </div>
+
+</body>
+</html>

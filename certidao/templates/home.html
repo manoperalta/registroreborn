@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lista de Bebês Registrados</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #ec4899;
+      --primary-hover: #db2777;
+      --secondary: #8b5cf6;
+      --secondary-hover: #7c3aed;
+      --text-primary: #1f2937;
+      --text-secondary: #4b5563;
+      --radius: 0.75rem;
+
+      --pink-light: #fce7f3;
+      --blue-light: #bae6fd;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(to bottom, var(--pink-light), var(--blue-light));
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      color: var(--text-primary);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+    }
+
+    .cloud {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.5;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .cloud::before,
+    .cloud::after {
+      content: '';
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+    }
+
+    .cloud.small {
+      width: 80px;
+      height: 40px;
+      top: 30px;
+      left: 20px;
+    }
+
+    .cloud.small::before {
+      width: 40px;
+      height: 40px;
+      top: -10px;
+      left: 20px;
+    }
+
+    .cloud.small::after {
+      width: 30px;
+      height: 30px;
+      top: 5px;
+      left: 50px;
+    }
+
+    .cloud.large {
+      width: 140px;
+      height: 70px;
+      top: 90px;
+      right: 30px;
+    }
+
+    .cloud.large::before {
+      width: 70px;
+      height: 70px;
+      top: -20px;
+      left: 30px;
+    }
+
+    .cloud.large::after {
+      width: 60px;
+      height: 60px;
+      top: 10px;
+      left: 80px;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .baby-list {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      padding: 1.5rem;
+      animation: fadeIn 1s ease;
+    }
+
+    .baby-card {
+      padding: 1rem;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.3s ease;
+    }
+
+    .baby-card:hover {
+      background: #f9fafb;
+    }
+
+    .baby-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .baby-name {
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: var(--primary);
+    }
+
+    .baby-date {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .btn-view {
+      background-color: var(--secondary);
+      color: white;
+      padding: 0.4rem 0.9rem;
+      border: none;
+      border-radius: var(--radius);
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .btn-view:hover {
+      background-color: var(--secondary-hover);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Nuvens -->
+  <div class="cloud small"></div>
+  <div class="cloud large"></div>
+
+  <header>
+    <h1>Bem-vindo!</h1>
+    <p>Veja todos os bebês registrados com carinho 💕</p>
+  </header>
+<div class="baby-list">
+  <div style="text-align: center; margin-top: 1rem; padding: 2rem;">
+    <a class="btn-view" href="{% url 'certidao_create' %}">Criar nova certidão</a>
+  </div>
+  <h2 style="text-align:center; margin-bottom: 1.5rem; color: var(--secondary);">Lista de Bebês Registrados</h2>
+
+  {% for certidao in certidoes %}
+  <div class="baby-card">
+    <div class="baby-info">
+      <span class="baby-name">{{ certidao.nome_crianca }}</span>
+      <span class="baby-date">Nascimento: {{ certidao.data_nascimento }}</span>
+    </div>
+    <a class="btn-view" href="{% url 'certidao_detail' certidao.pk %}">Ver Detalhes</a>
+  </div>
+  {% empty %}
+  <p style="text-align: center; padding: 1rem;">Nenhum bebê registrado ainda.</p>
+  {% endfor %}
+
+  
+</div>
+
+</body>
+</html>
+

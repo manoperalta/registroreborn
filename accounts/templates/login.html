@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #fce4ec, #e3f2fd);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: #ffffffcc;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 40px 30px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .login-container h2 {
+            color: #ba68c8;
+            margin-bottom: 20px;
+        }
+
+        form p {
+            margin-bottom: 20px;
+            color: #555;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            background-color: #fafafa;
+            box-sizing: border-box;
+        }
+
+        button, input[type="submit"] {
+            background-color: #f48fb1;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover, input[type="submit"]:hover {
+            background-color: #f06292;
+        }
+
+        .errorlist {
+            color: red;
+            list-style: none;
+            padding: 0;
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Login</h2>
+
+        <form method="post">
+            {% csrf_token %}
+
+            {% if login_form.non_field_errors %}
+                <ul class="errorlist">
+                    {% for error in login_form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <p>
+                <label for="{{ login_form.username.id_for_label }}">Usuário</label>
+                {{ login_form.username }}
+                {% for error in login_form.username.errors %}
+                    <span class="errorlist">{{ error }}</span>
+                {% endfor %}
+            </p>
+
+            <p>
+                <label for="{{ login_form.password.id_for_label }}">Senha</label>
+                {{ login_form.password }}
+                {% for error in login_form.password.errors %}
+                    <span class="errorlist">{{ error }}</span>
+                {% endfor %}
+            </p>
+
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+
+</body>
+</html>

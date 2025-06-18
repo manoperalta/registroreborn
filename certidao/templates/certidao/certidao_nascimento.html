@@ -4,50 +4,154 @@
     <meta charset="UTF-8">
     <title>Certidão de Nascimento</title>
     <style>
-        body { font-family: Arial, sans-serif; padding: 30px; }
-        h1 { text-align: center; }
-        .section { margin-bottom: 20px; }
-        .label { font-weight: bold; }
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Times New Roman', serif;
+            background-color: #f0fff0;
+        }
+
+        .certidao {
+            width: 185mm;
+            height: 267mm;
+            margin: auto;
+            padding: 15mm;
+            box-sizing: border-box;
+            position: relative;
+
+            /* Molduras */
+            border: 10px double #006600;
+            outline: 6px solid #99cc99;
+
+            /* Fundo dentro da moldura */
+            background-image: url('https://media.gazetadopovo.com.br/2011/01/98399e59facbc32f0b70bc813dcc92b7-full.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .certidao::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            bottom: 12px;
+            border: 2px dashed #006600;
+            pointer-events: none;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .header h1 {
+            margin: 0;
+            color: #006600;
+            font-size: 26px;
+            text-transform: uppercase;
+        }
+
+        .header h2 {
+            margin: 4px 0;
+            color: #004d00;
+            font-size: 16px;
+        }
+
+        .brasao {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .brasao img {
+            width: 70px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .footer img {
+            width: 250px;
+        }
+
+        .section {
+            border: 1px solid #006600;
+            border-radius: 6px;
+            padding: 8px 12px;
+            margin-bottom: 10px;
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+
+        h2 {
+            color: #006600;
+            border-bottom: 1px solid #006600;
+            padding-bottom: 3px;
+            margin-bottom: 6px;
+            font-size: 18px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        p {
+            margin: 3px 0;
+            font-size: 13px;
+        }
     </style>
 </head>
 <body>
-    <h1>Certidão de Nascimento</h1>
+    <div class="certidao" style="padding-top: 230px;">
+        
+        
+        <div class="section">
+            <p><span class="label">Nome da Criança:</span> {{ certidao.nome_crianca }}</p>
+            <p><span class="label">Sexo:</span> {{ certidao.sexo }}</p>
+            <p><span class="label">Nascimento:</span> {{ certidao.data_nascimento }} às {{ certidao.hora_nascimento }}</p>
+            <p><span class="label">Local de Nascimento:</span> {{ certidao.local_nascimento }}</p>
+            <p><span class="label">DNV:</span> {{ certidao.dnv }}</p>
+        </div>
 
-    <div class="section">
-        <p><span class="label">Nome da Criança:</span> {{ certidao.nome_crianca }}</p>
-        <p><span class="label">Sexo:</span> {{ certidao.sexo }}</p>
-        <p><span class="label">Nascimento:</span> {{ certidao.data_nascimento }} às {{ certidao.hora_nascimento }}</p>
-        <p><span class="label">Local de Nascimento:</span> {{ certidao.local_nascimento }}</p>
-        <p><span class="label">DNV:</span> {{ certidao.dnv }}</p>
-    </div>
+        <div class="section">
+            <h2>Mãe</h2>
+            <p><span class="label">Nome:</span> {{ certidao.nome_mae }}</p>
+            <p><span class="label">Nacionalidade:</span> {{ certidao.nacionalidade_mae }}</p>
+            <p><span class="label">Naturalidade:</span> {{ certidao.naturalidade_mae }}</p>
+            <p><span class="label">Idade:</span> {{ certidao.idade_mae }}</p>
+            <p><span class="label">Profissão:</span> {{ certidao.profissao_mae }}</p>
+            <p><span class="label">Endereço:</span> {{ certidao.endereco_mae }}</p>
+        </div>
 
-    <div class="section">
-        <h2>Mãe</h2>
-        <p><span class="label">Nome:</span> {{ certidao.nome_mae }}</p>
-        <p><span class="label">Nacionalidade:</span> {{ certidao.nacionalidade_mae }}</p>
-        <p><span class="label">Naturalidade:</span> {{ certidao.naturalidade_mae }}</p>
-        <p><span class="label">Idade:</span> {{ certidao.idade_mae }}</p>
-        <p><span class="label">Profissão:</span> {{ certidao.profissao_mae }}</p>
-        <p><span class="label">Endereço:</span> {{ certidao.endereco_mae }}</p>
-    </div>
+        {% if certidao.nome_pai %}
+        <div class="section">
+            <h2>Pai</h2>
+            <p><span class="label">Nome:</span> {{ certidao.nome_pai }}</p>
+            <p><span class="label">Nacionalidade:</span> {{ certidao.nacionalidade_pai }}</p>
+            <p><span class="label">Naturalidade:</span> {{ certidao.naturalidade_pai }}</p>
+            <p><span class="label">Idade:</span> {{ certidao.idade_pai }}</p>
+            <p><span class="label">Profissão:</span> {{ certidao.profissao_pai }}</p>
+            <p><span class="label">Endereço:</span> {{ certidao.endereco_pai }}</p>
+        </div>
+        {% endif %}
 
-    {% if certidao.nome_pai %}
-    <div class="section">
-        <h2>Pai</h2>
-        <p><span class="label">Nome:</span> {{ certidao.nome_pai }}</p>
-        <p><span class="label">Nacionalidade:</span> {{ certidao.nacionalidade_pai }}</p>
-        <p><span class="label">Naturalidade:</span> {{ certidao.naturalidade_pai }}</p>
-        <p><span class="label">Idade:</span> {{ certidao.idade_pai }}</p>
-        <p><span class="label">Profissão:</span> {{ certidao.profissao_pai }}</p>
-        <p><span class="label">Endereço:</span> {{ certidao.endereco_pai }}</p>
-    </div>
-    {% endif %}
-
-    <div class="section">
-        <p><span class="label">Declarante:</span> {{ certidao.nome_declarante }}</p>
-        <p><span class="label">Data do Registro:</span> {{ certidao.data_registro }}</p>
-        <p><span class="label">Livro:</span> {{ certidao.livro }} | <span class="label">Folha:</span> {{ certidao.folha }} | <span class="label">Termo:</span> {{ certidao.termo }}</p>
-        <p><span class="label">Oficial do Cartório:</span> {{ certidao.nome_oficial_cartorio }}</p>
+        <div class="section">
+            <p><span class="label">Declarante:</span> {{ certidao.nome_declarante }}</p>
+            <p><span class="label">Data do Registro:</span> {{ certidao.data_registro }}</p>
+            <p><span class="label">Livro:</span> {{ certidao.livro }} | <span class="label">Folha:</span> {{ certidao.folha }} | <span class="label">Termo:</span> {{ certidao.termo }}</p>
+            <p><span class="label">Oficial do Cartório:</span> {{ certidao.nome_oficial_cartorio }}</p>
+        </div>
+        <div>
+            <p><span class="label" style="font-size: xx-small;">*Sem valor legal</span></p>
+        </div>
+        
     </div>
 </body>
 </html>

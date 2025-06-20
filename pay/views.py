@@ -13,7 +13,7 @@ def product_list(request):
 
 # Configure sua chave correta aqui
 sdk = mercadopago.SDK(
-    "TEST-1071143411695782-093023-95cb15433988cb42b938b232f25893e6-43916148"
+    "TEST-10722434116df95782-09f3023-00095cb15433988cb42b938b232f25893e6-43916148"
 )
 
 

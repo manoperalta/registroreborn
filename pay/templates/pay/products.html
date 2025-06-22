@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Produtos - Bebês Reborn</title>
-<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
+{% extends "base.html" %}
+
+{% block title %}Produtos - Bebês Reborn{% endblock %}
+
+{% block content %}
 <style>
     :root {
       --primary: #ec4899;
@@ -20,18 +18,8 @@
       --white: #ffffff;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     body {
-      font-family: 'Quicksand', sans-serif;
       background: linear-gradient(to bottom, var(--pink-light), var(--blue-light));
-      min-height: 100vh;
-      padding: 2rem 1rem;
-      color: var(--text-primary);
     }
 
     header {
@@ -123,56 +111,55 @@
       }
     }
 </style>
-</head>
-<body>
-  <header>
-    <h1>Nossos Produtos</h1>
-    <p>Escolha o documento especial para o seu bebê reborn</p>
-  </header>
 
-  <div class="product-list">
+<header>
+  <h1>Nossos Produtos</h1>
+  <p>Escolha o documento especial para o seu bebê reborn</p>
+</header>
 
-    <!-- Produto 1 -->
-    <div class="product-card">
-      <div class="product-info">
-        <div class="product-name">Certidão de Nascimento</div>
-        <div class="product-details">Certificado oficial e personalizável para o seu bebê reborn.</div>
-        <div class="product-price">R$ 89,90</div>
-      </div>
-      <button class="btn-buy" onclick="pagar(1, 'Certidão de Nascimento', 89.90)">Pagar</button>
+<div class="product-list">
+
+  <!-- Produto 1 -->
+  <div class="product-card">
+    <div class="product-info">
+      <div class="product-name">Certidão de Nascimento</div>
+      <div class="product-details">Certificado oficial e personalizável para o seu bebê reborn.</div>
+      <div class="product-price">R$ 89,90</div>
     </div>
-
-    <!-- Produto 2 -->
-    <div class="product-card">
-      <div class="product-info">
-        <div class="product-name">Carteira de Vacinação</div>
-        <div class="product-details">Carteirinha com registros médicos e calendário completo.</div>
-        <div class="product-price">R$ 59,90</div>
-      </div>
-      <button class="btn-buy" onclick="pagar(1, 'Carteira de Vacinação', 59.90)">Pagar</button>
-    </div>
-
+    <button class="btn-buy" onclick="pagar(1, 'Certidão de Nascimento', 89.90)">Pagar</button>
   </div>
 
-  <script>
-    async function pagar(userId, productName, price) {
-      const response = await fetch("/pay/create/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRFToken": "{{ csrf_token }}"
-        },
-        body: JSON.stringify({ user_id: userId, product_name: productName, price: price })
-      });
+  <!-- Produto 2 -->
+  <div class="product-card">
+    <div class="product-info">
+      <div class="product-name">Carteira de Vacinação</div>
+      <div class="product-details">Carteirinha com registros médicos e calendário completo.</div>
+      <div class="product-price">R$ 59,90</div>
+    </div>
+    <button class="btn-buy" onclick="pagar(1, 'Carteira de Vacinação', 59.90)">Pagar</button>
+  </div>
 
-      const data = await response.json();
+</div>
 
-      if (data.init_point) {
-        window.location.href = data.init_point;
-      } else {
-        alert('Erro ao iniciar pagamento. Tente novamente.');
-      }
+<script>
+  async function pagar(userId, productName, price) {
+    const response = await fetch("/pay/create/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": "{{ csrf_token }}"
+      },
+      body: JSON.stringify({ user_id: userId, product_name: productName, price: price })
+    });
+
+    const data = await response.json();
+
+    if (data.init_point) {
+      window.location.href = data.init_point;
+    } else {
+      alert('Erro ao iniciar pagamento. Tente novamente.');
     }
-  </script>
-</body>
-</html>
+  }
+</script>
+
+{% endblock %}

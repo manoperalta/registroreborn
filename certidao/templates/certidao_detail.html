@@ -1,239 +1,146 @@
-{% load static %}
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Detalhes da Certidão</title>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #ec4899;
-      --primary-hover: #db2777;
-      --secondary: #8b5cf6;
-      --secondary-hover: #7c3aed;
-      --text-primary: #1f2937;
-      --text-secondary: #4b5563;
-      --radius: 0.5rem;
+{% block title %}Detalhes da Certidão{% endblock %}
 
-      --pink-light: #fce7f3;
-      --blue-light: #bae6fd;
-      --white: #ffffff;
-    }
+{% block content %}
+<style>
+  body {
+    background: linear-gradient(135deg, #fce4ec, #e3f2fd);
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+  }
 
-    * {
-      box-sizing: border-box;
-    }
+  .cloud {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: moveClouds 60s linear infinite;
+  }
 
-    body {
-      font-family: 'Quicksand', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(to bottom, var(--pink-light), var(--blue-light));
-      color: var(--text-primary);
-      overflow-x: hidden;
-    }
+  .cloud.small {
+    width: 100px;
+    height: 60px;
+    top: 50px;
+    left: 10%;
+  }
 
-    header {
-      text-align: center;
-      padding: 2rem;
-      background: #ede9fe;
-      border-bottom: 3px solid #fbcfe8;
-    }
+  .cloud.large {
+    width: 200px;
+    height: 120px;
+    top: 100px;
+    left: 60%;
+  }
 
-    header h1 {
-      font-family: 'Pacifico', cursive;
-      color: var(--primary);
-      margin-bottom: 0.3rem;
-      font-size: 2.5rem;
-    }
+  @keyframes moveClouds {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100vw); }
+  }
 
-    header p {
-      color: var(--text-secondary);
-      font-size: 1.1rem;
-    }
+  header {
+    text-align: center;
+    margin: 2rem 0;
+  }
 
-    .container {
-      max-width: 700px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background: var(--white);
-      border-radius: var(--radius);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-      animation: slideFadeIn 1s ease-out;
-      position: relative;
-      z-index: 2;
-    }
+  header h1 {
+    color: #ba68c8;
+    font-size: 2.5rem;
+  }
 
-    .field {
-      margin-bottom: 1.5rem;
-    }
+  header p {
+    color: #555;
+    font-size: 1.2rem;
+  }
 
-    .field label {
-      display: block;
-      font-weight: 600;
-      color: var(--text-secondary);
-      margin-bottom: 0.4rem;
-    }
+  .baby-detail {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
 
-    .field-value {
-      font-size: 1.1rem;
-      color: var(--text-primary);
-      padding: 0.5rem 0.75rem;
-      background: #e0f2fe;
-      border-radius: var(--radius);
-      border: 1px solid #bae6fd;
-    }
+  .field {
+    margin-bottom: 1.2rem;
+  }
 
-    .back-link {
-      display: inline-block;
-      margin-top: 1.5rem;
-      text-decoration: none;
-      background-color: var(--secondary);
-      color: white;
-      padding: 0.6rem 1.2rem;
-      border-radius: var(--radius);
-      transition: background 0.3s ease;
-    }
+  .field label {
+    font-weight: bold;
+    color: #555;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
 
-    .back-link:hover {
-      background-color: var(--secondary-hover);
-    }
+  .field-value {
+    padding: 0.5rem 1rem;
+    background: #e3f2fd;
+    border-radius: 12px;
+    border: 1px solid #bbdefb;
+    color: #333;
+  }
 
-    /* Animações */
-    @keyframes slideFadeIn {
-      0% {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+  .btn-view {
+    background: #f48fb1;
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+    display: inline-block;
+    margin-top: 1rem;
+  }
 
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-10px);
-      }
-    }
+  .btn-view:hover {
+    background: #f06292;
+  }
+</style>
 
-    /* Nuvens */
-    .cloud {
-      position: absolute;
-      background: #ffffff;
-      border-radius: 50%;
-      opacity: 0.6;
-      animation: float 6s ease-in-out infinite;
-      z-index: 1;
-    }
+<!-- Nuvens -->
+<div class="cloud small"></div>
+<div class="cloud large"></div>
 
-    .cloud::before,
-    .cloud::after {
-      content: '';
-      position: absolute;
-      background: #ffffff;
-      border-radius: 50%;
-    }
+<header>
+  <h1>Detalhes da Certidão</h1>
+  <p>Veja as informações registradas com carinho 💕</p>
+</header>
 
-    .cloud.small {
-      width: 80px;
-      height: 40px;
-      top: 40px;
-      left: 20px;
-    }
-
-    .cloud.small::before {
-      width: 40px;
-      height: 40px;
-      top: -10px;
-      left: 20px;
-    }
-
-    .cloud.small::after {
-      width: 30px;
-      height: 30px;
-      top: 5px;
-      left: 50px;
-    }
-
-    .cloud.large {
-      width: 140px;
-      height: 70px;
-      top: 100px;
-      right: 30px;
-    }
-
-    .cloud.large::before {
-      width: 70px;
-      height: 70px;
-      top: -20px;
-      left: 30px;
-    }
-
-    .cloud.large::after {
-      width: 60px;
-      height: 60px;
-      top: 10px;
-      left: 80px;
-    }
-
-  </style>
-</head>
-<body>
-
-  <header>
-    <h1>Detalhes da Certidão</h1>
-    <p>Veja as informações registradas com carinho</p>
-  </header>
-
-  <!-- Nuvens -->
-  <div class="cloud small"></div>
-  <div class="cloud large"></div>
-
-  <!-- Formulário -->
-  <div class="container">
-    <div class="field">
-      <label>Nome do Bebê</label>
-      <div class="field-value">{{ certidao.nome_crianca }}</div>
-    </div>
-
-    <div class="field">
-      <label>Data de Nascimento</label>
-      <div class="field-value">{{ certidao.data_nascimento }}</div>
-    </div>
-
-    <div class="field">
-      <label>Hora de Nascimento</label>
-      <div class="field-value">{{ certidao.hora_nascimento }}</div>
-    </div>
-
-    <div class="field">
-      <label>Naturalidade</label>
-      <div class="field-value">{{ certidao.local_nascimento }}</div>
-    </div>
-
-    <div class="field">
-      <label>Nacionalidade da Mãe</label>
-      <div class="field-value">{{ certidao.nacionalidade_mae }}</div>
-    </div>
-
-    <div class="field">
-      <label>Nome da Mamãe</label>
-      <div class="field-value">{{ certidao.nome_mae }}</div>
-    </div>
-
-    <div class="field">
-      <label>Data do Registro</label>
-      <div class="field-value">{{ certidao.data_registro }}</div>
-    </div>
-    <a href="{{ certidao.pdf_url }}">Baixar PDF</a>
-
+<div class="baby-detail">
+  <div class="field">
+    <label>Nome do Bebê</label>
+    <div class="field-value">{{ certidao.nome_crianca }}</div>
   </div>
 
-</body>
-</html>
+  <div class="field">
+    <label>Data de Nascimento</label>
+    <div class="field-value">{{ certidao.data_nascimento }}</div>
+  </div>
+
+  <div class="field">
+    <label>Hora de Nascimento</label>
+    <div class="field-value">{{ certidao.hora_nascimento }}</div>
+  </div>
+
+  <div class="field">
+    <label>Naturalidade</label>
+    <div class="field-value">{{ certidao.local_nascimento }}</div>
+  </div>
+
+  <div class="field">
+    <label>Nacionalidade da Mãe</label>
+    <div class="field-value">{{ certidao.nacionalidade_mae }}</div>
+  </div>
+
+  <div class="field">
+    <label>Nome da Mamãe</label>
+    <div class="field-value">{{ certidao.nome_mae }}</div>
+  </div>
+
+  <div class="field">
+    <label>Data do Registro</label>
+    <div class="field-value">{{ certidao.data_registro }}</div>
+  </div>
+
+  <a class="btn-view" href="{{ certidao.pdf_url }}" target="_blank">Baixar PDF</a>
+  <a class="btn-view" href="{% url 'certidao_list' %}">Voltar para a lista</a>
+</div>
+{% endblock %}

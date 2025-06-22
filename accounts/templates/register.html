@@ -1,84 +1,72 @@
+{% extends "base.html" %}
 
+{% block title %}Login Bebê Reborn{% endblock %}
 
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(135deg, #fce4ec, #e3f2fd);
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+    }
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Login Bebê Reborn</title>
-    <style>
-        body {
-            background: linear-gradient(135deg, #fce4ec, #e3f2fd);
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 90vh;
-            margin: 0;
-        }
+    .login-container {
+        background-color: #ffffffcc;
+        border-radius: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 40px 30px;
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+        margin: 60px auto;
+    }
 
-        .login-container {
-            background-color: #ffffffcc;
-            border-radius: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            padding: 40px 30px;
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-        }
+    .login-container h2 {
+        color: #ba68c8;
+        margin-bottom: 20px;
+    }
 
-        .login-container h2 {
-            color: #ba68c8;
-            margin-bottom: 20px;
-        }
+    form p {
+        margin-bottom: 20px;
+        color: #555;
+        text-align: left;
+    }
 
-        form p {
-            margin-bottom: 20px;
-            color: #555;
-            text-align: left;
-        }
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        background-color: #fafafa;
+        box-sizing: border-box;
+    }
 
-        input[type="text"],
-        input[type="password"],
-        input[type="email"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            background-color: #fafafa;
-            box-sizing: border-box;
-        }
+    button, input[type="submit"] {
+        background-color: #f48fb1;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
 
-        button, input[type="submit"] {
-            background-color: #f48fb1;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-        }
+    button:hover, input[type="submit"]:hover {
+        background-color: #f06292;
+    }
+</style>
 
-        button:hover, input[type="submit"]:hover {
-            background-color: #f06292;
-        }
-    </style>
-</head>
-<body>
-    {% block content %}
-    <div class="login-container">
-        <h2>Login Reborn</h2>
-        
-        <form method="POST">
-            {% csrf_token %}
-           {{ user_form.as_table }}
-            <div class="form-group">
+<div class="login-container">
+    <h2>Login Reborn</h2>
+    
+    <form method="POST">
+        {% csrf_token %}
+        {{ user_form.as_table }}
+        <div class="form-group mt-3">
             <input type="submit" value="Cadastrar">
-            </div>
-        </form>
-        
-    </div>{% endblock content %}
-</body>
-</html>
-
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -99,6 +99,11 @@
     .btn-buy:hover {
       background-color: var(--primary-hover);
     }
+    .disabled-btn {
+      opacity: 0.6;
+      cursor: not-allowed;
+      pointer-events: none; /* impede o clique */
+    }
 
     @keyframes fadeIn {
       from {
@@ -110,6 +115,7 @@
         transform: translateY(0);
       }
     }
+    
 </style>
 
 <header>
@@ -134,9 +140,9 @@
     <div class="product-info">
       <div class="product-name">Carteira de Vacinação</div>
       <div class="product-details">Carteirinha com registros médicos e calendário completo.</div>
-      <div class="product-price">R$ 59,90</div>
+      <div class="product-price">Desabilitado</div>
     </div>
-    <button class="btn-buy" onclick="pagar(1, 'Carteira de Vacinação', 59.90)">Pagar</button>
+    <button class="btn-buy disabled-btn" onclick="pagar(1, 'Carteira de Vacinação', 59.90)">Pagar</button>
   </div>
 
 </div>

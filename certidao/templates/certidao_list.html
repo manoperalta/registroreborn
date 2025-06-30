@@ -108,10 +108,17 @@
 </header>
 
 <div class="baby-list">
-  <div style="text-align: center; margin-top: 1rem; padding: 2rem;">
-    <a class="btn-view" href="{% url 'certidao_create' %}">Criar nova certidão</a>
+  <div style="text-align: center; margin-top: 0rem; padding: 2rem;">
+    {% if user.is_authenticated %}
+    <p></p><label>Hi! {{ user.username }}</label></p>
+      <a class="btn-view" href="{% url 'product_list' %}">Criar nova certidão</a>
+    {% endif %}
+    {% if not user.is_authenticated %}
+    <a class="btn-view" href="{% url 'login' %}">Login</a>
+    <a class="btn-view" href="{% url 'register' %}">Registrar</a>  
   </div>
-  <h2 style="text-align:center; margin-bottom: 1.5rem; color: #8b5cf6;">Lista de Bebês Registrados</h2>
+  {% endif %}
+  <h2 style="text-align:center; margin-bottom: 1.5rem; margin-top: 1rem; color: #8b5cf6;">Lista de Bebês Registrados</h2>
 
   {% for certidao in certidoes %}
   <div class="baby-card">

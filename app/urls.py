@@ -8,14 +8,15 @@ from certidao.views import (
     CertidaoNascimentoListView,
     
 )
-from accounts.views import register_view, login_view
+from accounts.views import register_view, login_view, logout_view
 from django.urls import path, include
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('register/', register_view, name='register'),
     path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
+    path('register/', register_view, name='register'),
     path('pay/', include('pay.urls')),
     path('nova/', CertidaoNascimentoCreateView.as_view(), name='certidao_create'),
     path('<int:pk>/', CertidaoNascimentoDetailView.as_view(), name='certidao_detail'),

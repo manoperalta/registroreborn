@@ -1,25 +1,27 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView
 from .models import CertidaoNascimento
 from .forms import CertidaoNascimentoForm
 
-
-# Criação da certidão
-class CertidaoNascimentoCreateView(CreateView):
+class CertidaoNascimentoCreateView(LoginRequiredMixin, CreateView):
     model = CertidaoNascimento
     form_class = CertidaoNascimentoForm
     template_name = 'certidao_form.html'
     success_url = reverse_lazy('certidao_list')
+    login_url = reverse_lazy('login')  # redireciona para login se não autenticado
 
-# Visualização detalhada
-class CertidaoNascimentoDetailView(DetailView):
+
+class CertidaoNascimentoDetailView(LoginRequiredMixin, DetailView):
     model = CertidaoNascimento
     template_name = 'certidao_detail.html'
     context_object_name = 'certidao'
+    login_url = 'login'  # ou reverse_lazy('login') se preferir
 
-# Lista de certidões
-class CertidaoNascimentoListView(ListView):
+
+class CertidaoNascimentoListView(LoginRequiredMixin, ListView):
     model = CertidaoNascimento
     template_name = 'certidao_list.html'
     context_object_name = 'certidoes'
+    login_url = 'login'
 

@@ -9,15 +9,13 @@ class CertidaoNascimentoCreateView(LoginRequiredMixin, CreateView):
     form_class = CertidaoNascimentoForm
     template_name = 'certidao_form.html'
     success_url = reverse_lazy('certidao_list')
-    login_url = reverse_lazy('login')  # redireciona para login se não autenticado
-
+    login_url = reverse_lazy('login')  
 
 class CertidaoNascimentoDetailView(LoginRequiredMixin, DetailView):
     model = CertidaoNascimento
     template_name = 'certidao_detail.html'
     context_object_name = 'certidao'
-    login_url = 'login'  # ou reverse_lazy('login') se preferir
-
+    login_url = 'login'  
 
 class CertidaoNascimentoListView(LoginRequiredMixin, ListView):
     model = CertidaoNascimento
